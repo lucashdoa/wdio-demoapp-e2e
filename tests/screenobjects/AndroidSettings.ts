@@ -1,4 +1,5 @@
 import { DEFAULT_PIN } from '../helpers/Constants';
+import Gestures from '../helpers/Gestures'
 
 class AndroidSettings {
     /**
@@ -29,7 +30,9 @@ class AndroidSettings {
         // There is a difference in the order the wizard in Android 10 is executed
         if (this.platformVersion > 9) {
             await this.reEnterPin(pin);
-            await this.waitAndTap('NEXT');
+            await this.waitAndTap('MORE');
+            await Gestures.swipeUp()
+            await this.waitAndTap('I AGREE');
         } else {
             await this.waitAndTap('NEXT');
             await this.reEnterPin(pin);

@@ -3,17 +3,11 @@ import LoginScreen from '../screenobjects/LoginScreen';
 import Biometrics from '../helpers/Biometrics';
 import NativeAlert from '../screenobjects/components/NativeAlert';
 import AndroidSettings from '../screenobjects/AndroidSettings';
+import { beforeEach } from 'mocha';
 
-/**
- * IMPORTANT!
- * To verify if Touch/FaceID for iOS and FingerPrint for Android work we need to verify if they are enabled. This can be done by verifying
- * if the biometrics button is shown. If not shown we need to enabled it.
- * For iOS it's pretty straightforward, but for Android is more complex. There is a helper (Android Settings) that will handle all steps for
- * you for Android 7.1 till the latest version of Android.
- */
-describe('WebdriverIO and Appium, when interacting with a biometric button,', () => {
+describe('WebdriverIO and Appium, when interacting with a biometric button', () => {
     beforeEach(async () => {
-        await goToLoginPage();
+        await TabBar.openLogin();
 
         // If the biometry is not shown on iOS, enable it on the phone
         if (driver.isIOS && !(await LoginScreen.isBiometricButtonDisplayed())) {
@@ -23,7 +17,7 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
             await driver.reset();
 
             // Wait for the app again and go to the login screen
-            await goToLoginPage();
+            await TabBar.openLogin();
         } else if (driver.isAndroid && !(await LoginScreen.isBiometricButtonDisplayed())) {
             // Android is more complex, see this method
             await AndroidSettings.enableBiometricLogin();
@@ -31,7 +25,7 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
             await driver.reset();
 
             // Wait for the app again and go to the login screen
-            await goToLoginPage();
+            await TabBar.openLogin();
         }
     });
 
@@ -94,8 +88,8 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
 /**
  * Go to the login screen
  */
-async function goToLoginPage(){
-    await TabBar.waitForTabBarShown();
-    await TabBar.openLogin();
-    await LoginScreen.waitForIsShown(true);
-}
+// async function goToLoginPage(){
+//     await TabBar.waitForTabBarShown();
+//     await TabBar.openLogin();
+//     await LoginScreen.waitForIsShown(true);
+// }
