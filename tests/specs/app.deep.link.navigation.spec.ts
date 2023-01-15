@@ -8,8 +8,7 @@ describe("When using Deep links", async () => {
     });
 
     it("should be able to open the webview", async () => {
-        await openDeepLinkUrl("webview"); // await WebViewScreen.waitForWebsiteLoaded();
-        // await driver.pause(10000);
+        await openDeepLinkUrl("webview"); 
         await WebViewScreen.waitForWebsiteLoaded();
     });
 });

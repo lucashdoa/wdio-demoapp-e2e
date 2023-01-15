@@ -10,4 +10,10 @@ export async function openDeepLinkUrl(url: string) {
             package: "com.wdiodemoapp",
         });
     }
+    const simulatorRegex = new RegExp('(.*-.*){2,}');
+
+    // Check if we are a simulator
+    if ('udid' in driver.capabilities && simulatorRegex.test( driver.capabilities.udid as string )){
+        await driver.url(`${ prefix }${ url }`);
+    } 
 }

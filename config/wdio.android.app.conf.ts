@@ -1,7 +1,7 @@
 import { join } from "path";
 import config from "./wdio.shared.local.appium.conf";
 
-config.specs = ["./tests/specs/**/app.*.spec.ts"];
+config.specs = ["./tests/specs/**/app*.spec.ts"];
 config.capabilities = [
     {
         platformName: "Android",
